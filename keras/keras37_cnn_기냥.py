@@ -2,7 +2,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense,Conv2D
 
 model = Sequential()
-model.add(Conv2D(10, (2,2), input_shape=(5,5,1))) # 필터 크기 (height, width, channel)
+model.add(Conv2D(10, (2,2), input_shape=(5,5,1))) # 필터 크기
 model.add(Conv2D(5, (2,2))) # 필터 크기
 
 model.summary()
