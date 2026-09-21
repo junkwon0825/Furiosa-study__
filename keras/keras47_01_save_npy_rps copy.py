@@ -1,0 +1,98 @@
+import numpy as np
+import time 
+from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.python.keras.models import Sequential
+from tensorflow.python.keras.layers import Dense,Conv2D,MaxPooling2D,Dropout
+from tensorflow.python.keras.layers import Flatten,GlobalAveragePooling2D
+from sklearn.metrics import accuracy_score #이진분류
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.model_selection import train_test_split
+from tensorflow.python.keras.callbacks import EarlyStopping
+#1.data
+
+path = './_data/image/rps/'
+
+datagen = ImageDataGenerator(
+    rescale=1./255
+)
+path = './_data/image/humans_horses/'
+
+xy_data = datagen.flow_from_directory(
+    path,
+    target_size=(150,150),
+    batch_size=2000,      # 전체 이미지보다 크게
+    class_mode='sparse',
+    color_mode='rgb',
+    shuffle=False
+)
+
+
+x, y = xy_data[0]
+
+print(x.shape)
+print(y.shape)
+
+x_train, x_test, y_train, y_test = train_test_split(
+    x,y,test_size=0.2,random_state=42,stratify=y)
+
+np_path = './_data/kaggle_cat_dog_npy/'
+np.save(np_path + 'keras46_02_x_train.npy', arr=x_train)
+np.save(np_path + 'keras46_02_y_train.npy', arr=y_train)
+np.save(np_path + 'keras46_02_x_test.npy', arr=x_test)
+np.save(np_path + 'keras46_02_y_test.npy', arr=y_test)
+
+
+#2.model
+
+model = Sequential()
+
+model.add(Conv2D(16, (5,5), input_shape=(150, 150, 3),activation='relu', padding='same', strides=1))
+
+model.add(MaxPooling2D(pool_size=(2,2)))
+
+model.add(Conv2D(32, (5,5), activation='relu', padding='same', strides=1))
+model.add(Conv2D(32, (4,4), activation='relu', padding='same', strides=1))
+model.add(Conv2D(16, (3,3), activation='relu', padding='same', strides=1))
+model.add(Conv2D(16, (3,3), activation='relu', padding='same', strides=1))
+
+model.add(Dropout(0.3))
+
+model.add(GlobalAveragePooling2D())
+
+model.add(Dense(32, activation='relu'))
+model.add(Dense(16, activation='relu'))
+
+model.add(Dense(3, activation='softmax'))
+
+#3.compile,train
+model.compile(loss='sparse_categorical_crossentropy', optimizer='adam',
+              metrics=['acc'])
+es = EarlyStopping(
+    monitor='val_loss',          # validation loss 감시
+    mode='auto',                  # val_loss는 작을수록 좋음
+    patience=300,                 # 10 epoch 동안 개선 없으면 중단
+    restore_best_weights=True,   # 가장 좋았던 weight로 복구
+    verbose=1
+)
+start_time = time.time()
+
+model.fit(x_train ,y_train, epochs=1000, batch_size=16,
+          verbose=1,callbacks=[es],
+          validation_split=0.2,
+          )
+
+end_time = time.time()
+
+
+#4.evaluate, predict
+print('===============model.evaluate==============')
+loss = model.evaluate(x_test, y_test, verbose=1,)
+print('loss : ', loss)
+y_train = y_train.astype(int)
+y_test = y_test.astype(int)
+y_predict = model.predict(x_test)
+y_predict = np.argmax(y_predict, axis=1)
+acc_score = accuracy_score(y_test, y_predict)
+print('accuracy_score : ', acc_score)
+print('걸린시간 : ', round(end_time-start_time,2), '초')
+
