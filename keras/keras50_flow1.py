@@ -1,4 +1,5 @@
 #48_copy
+#폴더의 이미지 수치화 하는거임//
 from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.preprocessing.image import img_to_array
 from keras.preprocessing.image import ImageDataGenerator
