@@ -2,7 +2,7 @@
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.layers import Dense, SimpleRNN, LSTM
+from tensorflow.keras.layers import Dense, SimpleRNN, LSTM, GRU
 from tensorflow.keras.callbacks import EarlyStopping,ReduceLROnPlateau
 
 
@@ -28,6 +28,8 @@ print(x.shape) #(7,3,1)
 model = Sequential()
 # model.add(SimpleRNN(units=10, input_shape=(3,1)))
 model.add(LSTM(30, input_shape=(9,1)))
+model.add(GRU(30, input_shape=(9,1)))
+
 #3차원으로 들어가서 2(1)차원으로 나옴 -> 바로 Dense와 연결가능
 model.add(Dense(80, activation='relu'))
 model.add(Dense(100, activation='relu'))
