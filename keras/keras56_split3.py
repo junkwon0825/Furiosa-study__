@@ -6,31 +6,34 @@ from tensorflow.keras.layers import Dense, LSTM, SimpleRNN, GRU, Dropout
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
 
 
-a = np.array([[1,2,3,4,5,6,7,8,9,10],
-             [9,8,7,6,5,4,3,2,1,0],
-             ]).T
-size = 4
+a = np.array(range(1,101))
+x_predict = np.array(range(96,106)) #101~106까지 찾자.
 
-def split_x(dataset, size):
-    aaa = []
-    for i in range(len(dataset) - size +1):
-        subset = dataset[i : (i+size)]
-        aaa.append(subset)
-    return np.array(aaa)
-bbb = split_x(a,size)
-x = bbb[:,:-1,:]
-y = bbb[:,-1,-1]
-print(x.shape) #(7, 3, 2)
-print(y.shape)  #(7,)
-# print(x)
-# print(y)
+size = 6
+def split_xy(dataset, size):
+    x = []
+    y = []
 
-# x = x.reshape(x.shape[0], x.shape[1], 1) 
+    for i in range(len(dataset) - size):
+        x_subset = dataset[i : (i+size)]
+        y_subset = dataset[(i+size)]
 
+        x.append(x_subset)
+        y.append(y_subset)
+
+    return np.array(x), np.array(y)
+
+x , y = split_xy(a,size)
+x = x.reshape(x.shape[0], x.shape[1], 1) 
+
+print(x.shape) #(94,6,1)
+print(y.shape)  #(94,)
+print(x)
+print(y)
 
 #2.model
 model = Sequential()
-model.add(GRU(30, input_shape=(3,2)))
+model.add(GRU(30, input_shape=(6,1)))
 model.add(Dense(50, activation='relu'))
 model.add(Dense(80, activation='relu'))
 model.add(Dense(100, activation='relu'))
@@ -67,25 +70,22 @@ es = EarlyStopping(
 results = model.evaluate(x,y)
 print('loss : ', results)
 
-x_predict = np.array([[8,2],[9,1],[10,0]]).reshape(1,3,2)
-y_predict = model.predict(x_predict)
+x_predict = np.array([95,96,97,98,99,100])
 
-print('다음 예측의 결과: ', y_predict)
+for i in range(6):
+    x_predict = x_predict.reshape(1,6,1)
 
+    y_predict = model.predict(x_predict)
 
+    print('다음 예측의 결과: ', y_predict)
 
-
-
-
-
-
-
-
-
+    x_predict = np.append(
+        x_predict.reshape(6)[1:],
+        y_predict[0][0]
+    )
 
 
 
-
-
-
-
+#로스는 0.1이하
+#결과는
+#[101,102,103,104,105,106]의 근사치가 나오면 됨
