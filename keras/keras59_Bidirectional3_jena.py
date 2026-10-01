@@ -5,7 +5,7 @@ import os
 os.environ["TF_FORCE_GPU_ALLOW_GROWTH"] = "true"
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.layers import Dense, SimpleRNN,LSTM,GRU
+from tensorflow.keras.layers import Dense, SimpleRNN,LSTM,GRU,Bidirectional
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import root_mean_squared_error
@@ -100,10 +100,10 @@ print('y_cor :', y_cor.shape)
 #2.model
 
 model = Sequential()
-model.add(LSTM(10, input_shape=(144,13),return_sequences=True))
-model.add(LSTM(30,return_sequences=True))
-model.add(LSTM(50,return_sequences=True))
-model.add(LSTM(50,return_sequences=True))
+model.add(Bidirectional(LSTM(10, input_shape=(144,13),return_sequences=True)))
+model.add(Bidirectional(LSTM(30,return_sequences=True)))
+model.add(Bidirectional(LSTM(50,return_sequences=True)))
+model.add(Bidirectional(LSTM(50,return_sequences=True)))
 model.add(Dense(20, activation='relu'))
 model.add(Dense(15, activation='relu'))
 model.add(Dense(5, activation='relu'))
@@ -136,7 +136,7 @@ es = EarlyStopping(
 model.fit(
     x_train, y_train,
     epochs=100,
-    batch_size=500,
+    batch_size=700,
     validation_data=(x_test, y_test),
     callbacks=[rlr, es],
     shuffle=False

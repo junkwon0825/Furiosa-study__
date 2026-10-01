@@ -4,3 +4,4 @@ _data/
 __pycache__/
 *.pyc
 model_history_log.csv
+.env
