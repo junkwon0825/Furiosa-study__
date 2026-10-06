@@ -19,13 +19,13 @@ embeddings = OpenAIEmbeddings(
         model="text-embedding-3-small",
         api_key=api_key,
         base_url=base_url,
-        dimensions=5,
+        # dimensions=5,
 )## dimension조절 가능
 
 vector = embeddings.embed_query(prompt)
 print(vector)
 print("=================================")
-print("임베딩 벡터의 차원: ", len(vector))
+print("임베딩 벡터의 차원: ", len(vector)) #1536
 
 # chain = prompt | model
 
