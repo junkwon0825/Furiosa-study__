@@ -538,3 +538,4 @@ retriever.invoke(query)
 
 Retriever를 사용하는 이유는 이후 RAG Chain에 연결하기 편하기 때문이다.
 
+ 
