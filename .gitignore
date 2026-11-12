@@ -8,13 +8,17 @@ __pycache__/
 .venv/
 venv/
 
+# Editor / local app
+.vscode/
+.gradio/
+
 # Secrets
 .env
 *.pem
 *.key
 
 # Training logs
-model_history_log.csv
+model_history_log*.csv
 
 # Model / accelerator artifacts
 *.pt
@@ -31,6 +35,8 @@ model_history_log.csv
 *.npz
 *.faiss
 *.index
+_db/
+_save/
 chroma_db/
 vector_db/
 .cache/
