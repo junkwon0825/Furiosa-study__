@@ -43,7 +43,7 @@ Compile / Quantization / Inference / Serving
 | `03_retrieval_agent/` | Embedding, FAISS, Chroma, RAG, Agent, MCP |
 | `04_npu/` | Furiosa RNGD, torch.compile, model porting, LLM serving |
 | `docs/` | 학습 로그, 오류/해결 기록 |
-| `python/`, `ml/`, `keras/`, `keras2/` | 기존 수업 원본 코드 (보존) |
+| `python/`, `ml/`, `keras/`, `keras2/`, `RAG/`, `LG/`, `논문/` | 기존 수업 원본 코드/자료 (보존) |
 
 > 기존 폴더는 수업 당시의 코드 흐름을 보존하기 위해 당분간 유지합니다. 신규 정리본과 NPU 실습은 번호가 붙은 폴더에 추가합니다.
 
@@ -131,7 +131,7 @@ Model
 
 ## Next
 
-- NPU 서버의 실제 수업 코드 동기화
+- NPU 서버의 `furiosa1/`, `furiosa2/` 실제 수업 코드 동기화
 - SimpleModel / ResNet18 / YOLO 포팅 기록 추가
 - Furiosa LLM serving 코드 추가
 - GPU vs NPU latency / throughput benchmark
