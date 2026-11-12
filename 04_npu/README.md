@@ -1,35 +1,86 @@
 # 04. Furiosa RNGD NPU
 
-이 저장소에서 가장 중요한 NPU 실습 영역입니다.
+Furiosa RNGD 기반 **LLM inference / serving / performance optimization** 실습을 정리합니다.
+
+## Canonical Structure
+
+```text
+04_npu/
+├── 00_environment/
+├── 01_basics/
+├── 02_langchain_tool/
+├── 03_streaming_metrics/
+├── 04_continuous_batching/
+├── 05_kv_prefix_cache/
+├── 06_concurrency_rps/
+├── 07_server_metrics/
+├── 08_model_porting/
+└── 09_quantization/
+```
+
+## Learning Flow
+
+```text
+RNGD Environment
+→ Basic Inference
+→ LangChain / Tool Calling
+→ Streaming / Latency / TTFC / TPS
+→ Continuous Batching
+→ KV Cache / Prefix Cache
+→ Concurrency / RPS
+→ Server Metrics
+→ Model Porting
+→ Quantization
+```
 
 ## Environment
 
-확인한 주요 환경:
 - RNGD
 - Driver 2026.4.0
 - Firmware 2026.4.0
-- `furiosa-llm 2026.4.0`
-- `furiosa-llm-native 2026.4.0`
-- `furiosa-tcc 2026.4.0`
-- PyTorch + Furiosa backend
+- furiosa-llm 2026.4.0
+- furiosa-llm-native 2026.4.0
+- furiosa-tcc 2026.4.0
 
-## 1. PyTorch Compile
+## PyTorch → NPU
 
-SimpleModel:
+SimpleModel에서:
+
 - Linear(16 → 8)
 - `torch.compile(model, backend=furiosa.torch.backend)`
+- `furiosa:0`
 - NPU inference 성공
-- output shape: `[1, 8]`
 
-## 2. Model Porting
+ResNet18에서는 다음 이슈를 확인했습니다.
 
-ResNet18에서 확인한 문제:
-- shared-library / torch compatibility
+- binary compatibility
 - unsupported ATen operator
 - `aten::_native_batch_norm_legit_no_training`
-- BatchNorm freeze / graph decomposition 검토
+- BatchNorm freeze / fold
+- graph decomposition
 
-## 3. Quantization
+## LLM Serving
+
+주요 실습 모델:
+
+- `furiosa-ai/Qwen3-8B-FP8`
+
+주요 개념:
+
+- OpenAI-compatible API
+- streaming
+- latency
+- TTFC / TTFT
+- prefill / decode
+- TPS
+- continuous batching
+- KV cache
+- prefix cache
+- concurrency
+- RPS
+- server metrics
+
+## Quantization
 
 - BF16
 - GGUF
@@ -37,46 +88,6 @@ ResNet18에서 확인한 문제:
 - llama.cpp
 - Gemma / Qwen
 
-## 4. LLM Serving
+## Current Status
 
-실습 대상:
-- `furiosa-ai/Qwen3-8B-FP8`
-
-예시:
-
-```bash
-furiosa-llm serve furiosa-ai/Qwen3-8B-FP8 \
-    --devices npu:0 \
-    --host 127.0.0.1 \
-    --port 8000
-```
-
-확인:
-
-```bash
-curl http://127.0.0.1:8000/v1/models
-```
-
-학습 포인트:
-- OpenAI-compatible API
-- continuous batching
-- KV cache
-- TTFT
-- TPS
-- latency / throughput
-
-## 5. Server Sync
-
-NPU 서버에서 실제 실습 코드를 이 폴더 아래로 동기화할 예정입니다.
-
-권장 구조:
-
-```text
-04_npu/
-├── 01_environment/
-├── 02_torch_compile/
-├── 03_model_porting/
-├── 04_quantization/
-├── 05_llm_serving/
-└── 06_benchmark/
-```
+GitHub에는 구조와 문서가 정리되어 있으며, NPU 서버의 `furiosa1/`, `furiosa2/` 실제 수업 코드를 위 구조로 동기화 중입니다.
