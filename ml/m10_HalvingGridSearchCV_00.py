@@ -1,5 +1,5 @@
 import numpy as np
-from sklearn.datasets import load_digits
+from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split, StratifiedKFold
 from sklearn.ensemble import HistGradientBoostingClassifier
 from sklearn.metrics import accuracy_score
@@ -11,7 +11,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 #1.data
-x,y = load_digits(return_X_y=True)
+x,y = load_iris(return_X_y=True)
 
 x_train, x_test, y_train, y_test = train_test_split(
     x, y, shuffle=True, random_state=333, train_size=0.8, stratify=y
@@ -33,8 +33,11 @@ model = HalvingGridSearchCV(xgb, parameters, cv=kfold,
                     verbose=1,
                     # n_jobs=-1,#-1은 cpu다쓰는거
                     # random_state=333, #어떤 파라미터쓸지 랜덤난수
-                    refit=False,
+                    refit=True,
                     # n_iter=1
+                    min_resources=50, #2*5*10 = 2*cv*클래스갯수
+                    max_resources=1437, #
+                    factor=2,
                     )
 
 #3.train
@@ -46,7 +49,8 @@ end = time.perf_counter()
 # print("최적의 파라미터 :", model.best_params_)
 
 #4.평가 예측
+print("===============================================")
 print('model.score : ', model.score(x_test, y_test))
-print('best_Score :', model.best_score_)
+print('best_score :', model.best_score_)
 
 print("걸린시간 : ", round(end - start, 2), "초")
