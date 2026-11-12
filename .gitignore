@@ -1,7 +1,48 @@
 _data/
 **/submit/*.csv
 **/submission_result.csv
+
+# Python
 __pycache__/
 *.pyc
-model_history_log.csv
+.venv/
+venv/
+
+# Secrets
 .env
+*.pem
+*.key
+
+# Training logs
+model_history_log.csv
+
+# Model / accelerator artifacts
+*.pt
+*.pth
+*.onnx
+*.bin
+*.safetensors
+*.gguf
+*.fxb
+*.engine
+
+# Embedding / vector DB / cache
+*.npy
+*.npz
+*.faiss
+*.index
+chroma_db/
+vector_db/
+.cache/
+huggingface/
+
+# Large local data
+data/
+datasets/
+models/
+weights/
+checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
