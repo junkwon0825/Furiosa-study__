@@ -1,2 +1,0 @@
-Day01 AI STUDY START
-
