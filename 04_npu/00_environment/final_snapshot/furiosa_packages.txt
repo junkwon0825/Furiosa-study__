@@ -1,0 +1,7 @@
+furiosa-kernels==2026.4.0
+furiosa-kernels-contrib==2026.4.0
+furiosa-llm==2026.4.0
+furiosa-llm-native==2026.4.0
+furiosa-native-llm-common==2026.4.0
+furiosa-smi==2026.4.0
+furiosa-tcc==2026.4.0

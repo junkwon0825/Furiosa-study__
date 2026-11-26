@@ -1,0 +1,6 @@
+- furiosa-smi
+  2026.1.1
+
+- device driver
+  2026.4.0, 32ffd4e
+

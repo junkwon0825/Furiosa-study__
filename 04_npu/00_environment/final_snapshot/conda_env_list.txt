@@ -1,0 +1,12 @@
+
+# conda environments:
+#
+# * -> active
+# + -> frozen
+base                 *   /root/miniconda3
+furiosa                  /root/miniconda3/envs/furiosa
+furiosa-npu              /root/miniconda3/envs/furiosa-npu
+furiosa-project          /root/miniconda3/envs/furiosa-project
+furiosa-yolo             /root/miniconda3/envs/furiosa-yolo
+furiosa02                /root/miniconda3/envs/furiosa02
+

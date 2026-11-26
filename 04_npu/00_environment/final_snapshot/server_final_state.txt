@@ -1,0 +1,19 @@
+snapshot_timestamp_utc=2026-11-26T07:18:30Z
+hostname=hancom-furi-agent-1
+uptime= 07:18:30 up 41 days,  3:09,  0 users,  load average: 4.57, 4.91, 4.93
+--- memory ---
+               total        used        free      shared  buff/cache   available
+Mem:           1.0Ti       157Gi       127Gi        44Mi       722Gi       843Gi
+Swap:             0B          0B          0B
+--- disk ---
+Filesystem      Size  Used Avail Use% Mounted on
+overlay         432G   74G  358G  18% /
+/dev/rbd0       125G   27G   99G  22% /root
+--- repository ---
+## main...origin/main
+?? 04_npu/00_environment/final_snapshot/
+?? 04_npu/99_raw_class_snapshot/
+7b3dfb6 (HEAD -> main, origin/main, origin/HEAD) study Furiosa LangChain agent and multi-step tool calling
+--- source counts ---
+furiosa1=12
+furiosa2=36

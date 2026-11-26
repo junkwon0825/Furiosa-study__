@@ -1,0 +1,117 @@
+
+# >>>>>>>>>>>>>>>>>>>>>> ERROR REPORT <<<<<<<<<<<<<<<<<<<<<<
+
+    Traceback (most recent call last):
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/exception_handler.py", line 30, in __call__
+        return func(*args, **kwargs)
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/cli/main.py", line 55, in main_subshell
+        exit_code = do_call(args, parser)
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/cli/conda_argparse.py", line 357, in do_call
+        result = getattr(module, func_name)(args, parser)
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/cli/main_list.py", line 430, in execute
+        return print_packages(
+            prefix,
+        ...<7 lines>...
+            show_size=args.size,
+        )
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/cli/main_list.py", line 336, in print_packages
+        exitcode, output = list_packages(
+                           ~~~~~~~~~~~~~^
+            prefix,
+            ^^^^^^^
+        ...<6 lines>...
+            show_size=show_size,
+            ^^^^^^^^^^^^^^^^^^^^
+        )
+        ^
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/cli/main_list.py", line 210, in list_packages
+        prefix_data.load()
+        ~~~~~~~~~~~~~~~~^^
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/common/io.py", line 110, in decorated
+        return f(*args, **kwds)
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/core/prefix_data.py", line 485, in load
+        loader(self.prefix_path, self.__prefix_records)
+        ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/plugins/prefix_data_loaders/pypi/__init__.py", line 122, in load_site_packages
+        python_record = read_python_record(
+            prefix_path, af, python_pkg_record.version
+        )
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/plugins/prefix_data_loaders/pypi/pkg_format.py", line 1246, in read_python_record
+        paths_tups = pydist.get_paths()
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/plugins/prefix_data_loaders/pypi/pkg_format.py", line 291, in get_paths
+        records = process_csv_row(record_reader)
+      File "/root/miniconda3/lib/python3.14/site-packages/conda/plugins/prefix_data_loaders/pypi/pkg_format.py", line 268, in process_csv_row
+        raise ValueError(
+        ...<2 lines>...
+        )
+    ValueError: Invalid checksum b'L4RZEa9NkfRJ5zJhMWX8znVzvRP151Mx6QYByg0Furo' at lib/python3.11/site-packages/furiosa/__init__.pyi. Check /root/miniconda3/envs/furiosa02/lib/python3.11/site-packages/furiosa_llm_native-2026.4.0.dist-info.
+
+`$ /root/miniconda3/bin/conda list -p /root/miniconda3/envs/furiosa02`
+
+  environment variables:
+                 CIO_TEST=<not set>
+        CONDA_DEFAULT_ENV=base
+                CONDA_EXE=/root/miniconda3/bin/conda
+             CONDA_PREFIX=/root/miniconda3
+    CONDA_PROMPT_MODIFIER=(base)
+         CONDA_PYTHON_EXE=/root/miniconda3/bin/python
+               CONDA_ROOT=/root/miniconda3
+              CONDA_SHLVL=1
+           CURL_CA_BUNDLE=<not set>
+               LD_PRELOAD=<not set>
+                     PATH=/root/miniconda3/bin:/root/miniconda3/condabin:/usr/local/sbin:/usr/lo
+                          cal/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/sna
+                          p/bin
+       REQUESTS_CA_BUNDLE=<not set>
+            SSL_CERT_FILE=<not set>
+
+     active environment : base
+    active env location : /root/miniconda3
+            shell level : 1
+       user config file : /root/.condarc
+ populated config files : /root/miniconda3/.condarc
+                          /root/miniconda3/condarc.d/anaconda-auth.yml
+          conda version : 26.9.4
+    conda-build version : not installed
+         python version : 3.14.9.final.0
+                 solver : libmamba (default)
+       virtual packages : __archspec=1=zen4
+                          __conda=26.9.4=0
+                          __glibc=2.35=0
+                          __linux=6.8.0=0
+                          __unix=0=0
+       base environment : /root/miniconda3  (writable)
+           distribution : Miniconda3 py314_26.9.4-0 (sh, linux-64)
+      conda av data dir : /root/miniconda3/etc/conda
+  conda av metadata url : None
+           channel URLs : https://repo.anaconda.com/pkgs/main/linux-64
+                          https://repo.anaconda.com/pkgs/main/noarch
+                          https://repo.anaconda.com/pkgs/r/linux-64
+                          https://repo.anaconda.com/pkgs/r/noarch
+          package cache : /root/miniconda3/pkgs
+                          /root/.conda/pkgs
+          notices cache : /root/.cache/conda/notices
+       envs directories : /root/miniconda3/envs
+                          /root/.conda/envs
+    temporary directory : /tmp
+               platform : linux-64
+             user-agent : conda/26.9.4 requests/2.34.2 CPython/3.14.9 Linux/6.8.0-117-generic ubuntu/22.04.5 glibc/2.35 solver/libmamba conda-libmamba-solver/26.10.0 libmambapy/2.3.2 aau/0.8.1 c/. s/. e/.
+                UID:GID : 0:0
+             netrc file : None
+           offline mode : False
+
+
+An unexpected error has occurred. Conda has prepared the above report.
+
+If you suspect this error is being caused by a malfunctioning plugin,
+consider using the --no-plugins option to turn off plugins.
+
+Example: conda --no-plugins install <package>
+
+Alternatively, you can set the CONDA_NO_PLUGINS environment variable on
+the command line to run the command without plugins enabled.
+
+Example: CONDA_NO_PLUGINS=true conda install <package>
+
+
+conda list exited nonzero; output above preserved without modifying the environment.

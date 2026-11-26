@@ -1,0 +1,10 @@
+snapshot_timestamp_utc=2026-11-26T07:18:30Z
+hostname=hancom-furi-agent-1
+user=root
+target_conda_env=furiosa02
+CONDA_PREFIX=/root/miniconda3/envs/furiosa02
+python=/root/miniconda3/envs/furiosa02/bin/python
+Python 3.11.18
+pip 26.2.2 from /root/miniconda3/envs/furiosa02/lib/python3.11/site-packages/pip (python 3.11)
+pip_module_invocation=/root/miniconda3/envs/furiosa02/bin/python -m pip
+furiosa_smi=/usr/bin/furiosa-smi
